@@ -1,0 +1,19 @@
+﻿@model Data.Models.Year
+
+<div>
+    <table class="table">
+        <tr class="dl-horizontal">
+            <td> @Html.DisplayNameFor(model => model.Date) </td>
+            <td>
+                @using (Html.BeginForm())
+                {
+                    <input type="submit" value="@Resources.Resource.Delete" class="btn btn-default" />
+                }
+            </td>
+        </tr>
+        <tr>
+            <td> @Html.DisplayFor(model => model.Date)</td>
+            <td> @Html.ActionLink(Resources.Resource.Back, "Show") </td>
+        </tr>
+    </table>
+</div>

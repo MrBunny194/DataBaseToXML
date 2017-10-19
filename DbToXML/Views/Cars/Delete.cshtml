@@ -1,0 +1,19 @@
+﻿@model Data.Models.Car
+
+<div>
+    <table class="table">
+        <tr class="dl-horizontal">
+            <td>@Html.DisplayFor(model => model.Name)</td>
+            <td>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-actions no-color">
+                        <input type="submit" value="@Resources.Resource.Delete" class="btn btn-default" />
+                    </div>
+                }
+            </td>
+        </tr>
+    </table>
+    @Html.ActionLink(Resources.Resource.Back, "Index")
+</div>

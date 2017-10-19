@@ -1,0 +1,43 @@
+﻿@model  DbToXML.ViewModel.LoginViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = @Resources.Resource.titleLogin;
+}
+
+
+    <div class="col-md-6  col-md-offset-3">
+        <div class="panel panel-default my-panel">
+            <div class="panel-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            @Html.TextBoxFor(model => model.Name, htmlAttributes: new { @class = "form-control", @placeholder = Resources.Resource.Username, @type = "text" })
+                        </div>
+                        <span class="text-warning">@Html.ValidationMessageFor(model => model.Name)</span>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            @Html.TextBoxFor(model => model.Password, htmlAttributes: new { @class = "form-control", @placeholder = Resources.Resource.Password, @type = "password" })
+                        </div>
+                        <span class="text-warning">@Html.ValidationMessageFor(model => model.Password)</span>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-success"><span class="black-text">@Resources.Resource.LogIn</span></button>
+                    </div>
+
+                    <div class="text-center">
+                        @Html.ActionLink(Resources.Resource.Registration, "Register", "Account")
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+

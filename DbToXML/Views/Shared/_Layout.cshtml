@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title</title>
+        
+        @Styles.Render("~/Content/bootstrap.css")
+        @Styles.Render("~/Content/cover.css")
+        @Scripts.Render("~/bundles/modernizr")
+    </head>
+
+    <body>
+        <div class="site-wrapper">
+            <div class="site-wrapper-inner">
+                <div class="cover-container">
+                    
+                    <div class="masthead clearfix">
+                        <div class="inner">
+                            @using (Html.BeginForm("ChangeCulture", "Culture"))
+                            {
+                                <button class="btn btn-success masthead-brand" type="submit" name="lang" value="en"><span class="black-text">en</span></button>
+                                <button class="btn btn-success masthead-brand" type="submit" name="lang" value="ru"><span class="black-text">ru</span></button>
+                            }
+                            <nav>
+                                <ul class="nav masthead-nav">
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <li>@Html.ActionLink(Resources.Resource.Home, "Index", "Cars")</li>
+                                        <li>@Html.ActionLink(Resources.Resource.Year, "Index", "Years")</li>
+                                        <li>@Html.ActionLink(Resources.Resource.Exit + " - " + @User.Identity.Name, "Logoff", "Account")</li>
+                                    }
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    
+                    @RenderBody()
+                   
+                    
+                    <div class="mastfoot">
+                        <div class="inner">
+                            <p>@Resources.Resource.Copyright © @DateTime.Now.Year</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

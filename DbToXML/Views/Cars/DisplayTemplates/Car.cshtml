@@ -1,0 +1,22 @@
+﻿@model  Data.Models.Car
+
+<tr>
+    <td> @Model.Model</td>
+    <td> @Model.Name</td>
+    <td> @Html.ActionLink(Model.Year.Date.ToString(), "Index", "Years")  </td>
+    @if (Roles.IsUserInRole(User.Identity.Name, "admin"))
+    {
+        //<td> @Html.ActionLink(Resources.Resource.Delete, "Delete", new { id = Model.Id }) </td>
+        <td>
+            @using (Html.BeginForm("Delete", "Cars", new { id = Model.Id }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-actions no-color">
+                    <input type="submit" value="@Resources.Resource.Delete" class="btn btn-default" />
+                </div>
+            }
+        </td>
+    }
+
+        
+</tr>

@@ -1,0 +1,67 @@
+﻿@model  DbToXML.ViewModel.CarsViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <div class="col-md-8">
+        <table class="table text-center">
+            <tr>
+                <th class="text-center">@Html.DisplayNameFor(model => model.Model)</th>
+                <th class="text-center">@Html.DisplayNameFor(model => model.Name)</th>
+                <th class="text-center">@Html.DisplayNameFor(model => model.Year)</th>
+                @if (Roles.IsUserInRole(User.Identity.Name, "admin"))
+                {
+                    <th></th>
+                }
+            </tr>
+            @Html.DisplayFor(m => m.CarsView)
+        </table>
+    </div>
+
+    <div class="col-md-4">
+        @if (Roles.IsUserInRole(User.Identity.Name, "admin"))
+        {
+            <div class="panel panel-default my-panel" style="background-color: lightgray; position: fixed">
+                <div class="panel-body">
+                    @using (Html.BeginForm("Create", "Cars", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(model => model.Model, htmlAttributes: new { @class = "form-control", @placeholder = Resources.Resource.Brand, @type = "text", @required = true })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.TextBoxFor(model => model.Name, htmlAttributes: new { @class = "form-control", @placeholder = Resources.Resource.Model, @type = "text", @required = true })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.DropDownListFor(model => model.Year, Model.SelectYear, htmlAttributes: new { @class = "form-control", @required = true })
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-info btn-block">@Resources.Resource.AddCar</button>
+                        </div>
+                    }
+
+                    @using (Html.BeginForm("CreateFile", "Cars", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+
+                        <div class="form-group">
+                            @Html.TextBox("nameFile", "Report " + DateTime.Now.Day + " " + DateTime.Now.DayOfWeek, htmlAttributes: new { @class = "form-control", @required = true })
+                        </div>
+
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-info btn-block">@Resources.Resource.SaveReport</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+

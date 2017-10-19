@@ -1,0 +1,15 @@
+﻿@model  Data.Models.Year
+
+<tr>
+    <td>@Model.Date</td>
+    @if (Roles.IsUserInRole(User.Identity.Name, "admin"))
+    {
+        //<td>@Html.ActionLink(Resources.Resource.Delete, "Delete", new { id = Model.Id })</td>
+        <td>
+            @using (Html.BeginForm("Delete", "Years", new { id = Model.Id }))
+            {
+                <input type="submit" value="@Resources.Resource.Delete" class="btn btn-default" />
+            }
+        </td>
+    }
+</tr>
